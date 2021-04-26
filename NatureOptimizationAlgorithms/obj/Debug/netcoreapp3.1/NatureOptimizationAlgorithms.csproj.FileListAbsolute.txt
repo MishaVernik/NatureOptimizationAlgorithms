@@ -1,0 +1,13 @@
+G:\Courses\8 semester\Diploma\Project\NatureOptimizationAlgorithms\NatureOptimizationAlgorithms\obj\Debug\netcoreapp3.1\NatureOptimizationAlgorithms.csprojAssemblyReference.cache
+G:\Courses\8 semester\Diploma\Project\NatureOptimizationAlgorithms\NatureOptimizationAlgorithms\obj\Debug\netcoreapp3.1\NatureOptimizationAlgorithms.AssemblyInfoInputs.cache
+G:\Courses\8 semester\Diploma\Project\NatureOptimizationAlgorithms\NatureOptimizationAlgorithms\obj\Debug\netcoreapp3.1\NatureOptimizationAlgorithms.AssemblyInfo.cs
+G:\Courses\8 semester\Diploma\Project\NatureOptimizationAlgorithms\NatureOptimizationAlgorithms\bin\Debug\netcoreapp3.1\NatureOptimizationAlgorithms.exe
+G:\Courses\8 semester\Diploma\Project\NatureOptimizationAlgorithms\NatureOptimizationAlgorithms\bin\Debug\netcoreapp3.1\NatureOptimizationAlgorithms.deps.json
+G:\Courses\8 semester\Diploma\Project\NatureOptimizationAlgorithms\NatureOptimizationAlgorithms\bin\Debug\netcoreapp3.1\NatureOptimizationAlgorithms.runtimeconfig.json
+G:\Courses\8 semester\Diploma\Project\NatureOptimizationAlgorithms\NatureOptimizationAlgorithms\bin\Debug\netcoreapp3.1\NatureOptimizationAlgorithms.runtimeconfig.dev.json
+G:\Courses\8 semester\Diploma\Project\NatureOptimizationAlgorithms\NatureOptimizationAlgorithms\bin\Debug\netcoreapp3.1\NatureOptimizationAlgorithms.dll
+G:\Courses\8 semester\Diploma\Project\NatureOptimizationAlgorithms\NatureOptimizationAlgorithms\bin\Debug\netcoreapp3.1\NatureOptimizationAlgorithms.pdb
+G:\Courses\8 semester\Diploma\Project\NatureOptimizationAlgorithms\NatureOptimizationAlgorithms\obj\Debug\netcoreapp3.1\NatureOptimizationAlgorithms.dll
+G:\Courses\8 semester\Diploma\Project\NatureOptimizationAlgorithms\NatureOptimizationAlgorithms\obj\Debug\netcoreapp3.1\NatureOptimizationAlgorithms.pdb
+G:\Courses\8 semester\Diploma\Project\NatureOptimizationAlgorithms\NatureOptimizationAlgorithms\bin\Debug\netcoreapp3.1\DeepCloner.dll
+G:\Courses\8 semester\Diploma\Project\NatureOptimizationAlgorithms\NatureOptimizationAlgorithms\obj\Debug\netcoreapp3.1\NatureOptimizationAlgorithms.csproj.CopyComplete
