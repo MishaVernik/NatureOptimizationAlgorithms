@@ -6,16 +6,13 @@ using NatureOptimizationAlgorithms.Tools;
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
+using System.Linq;
 using System.Linq.Expressions;
-using System.Numerics;
 using System.Text;
 
 namespace NatureOptimizationAlgorithms.Algorithms
 {
-    /// <summary>
-    /// Gray Wolf Optimizer - GWO
-    /// </summary>
-    public class GrayWolfOptimizer : IOptimizer
+    public class MeanGrayWolfOptimizer : IOptimizer
     {
         public int maxIterations { get; set; }
 
@@ -29,19 +26,19 @@ namespace NatureOptimizationAlgorithms.Algorithms
         private double a { get; set; }
 
         private int currentIteration { get; set; }
-        public GrayWolfOptimizer()
+        public MeanGrayWolfOptimizer()
         {
 
         }
 
-        public GrayWolfOptimizer(int maxIterations, int numberOfWolves, int numberOfDimensions)
+        public MeanGrayWolfOptimizer(int maxIterations, int numberOfWolves, int numberOfDimensions)
         {
             this.maxIterations = maxIterations;
             this.numberOfWolves = numberOfWolves;
             this.numberOfDimensions = numberOfDimensions;
         }
 
-        public GrayWolfOptimizer(int maxIterations, int numberOfWolves, int numberOfDimensions, List<double> upperBoundaries, List<double> lowerBoundaries)
+        public MeanGrayWolfOptimizer(int maxIterations, int numberOfWolves, int numberOfDimensions, List<double> upperBoundaries, List<double> lowerBoundaries)
         {
             this.maxIterations = maxIterations;
             this.numberOfWolves = numberOfWolves;
@@ -66,7 +63,6 @@ namespace NatureOptimizationAlgorithms.Algorithms
 
             Initialize();
         }
-
 
         public void Initialize()
         {
@@ -188,20 +184,22 @@ namespace NatureOptimizationAlgorithms.Algorithms
                 //Console.WriteLine($"Alpha Score: {wolves.Find(wolf => wolf.name.Equals("alpha")).score}");
                 //Console.WriteLine($"Alpha Positions: {String.Join(", ", wolves.Find(wolf => wolf.name.Equals("alpha")).position.ToArray())}");
             }
-            Console.WriteLine($"Alpha Score: {wolves.Find(wolf => wolf.name.Equals("alpha")).score}");
-            Console.WriteLine($"Alpha Positions: {String.Join(", ", wolves.Find(wolf => wolf.name.Equals("alpha")).position.ToArray())}");
+            Console.WriteLine($"Mean Alpha Score: {wolves.Find(wolf => wolf.name.Equals("alpha")).score}");
+            Console.WriteLine($"Mean Alpha Positions: {String.Join(", ", wolves.Find(wolf => wolf.name.Equals("alpha")).position.ToArray())}");
 
         }
 
         private double GenerateNewPosition(Random random, int wolfIndex, int dimension, string wolfname)
         {
+            Random L = new Random();
             double r1 = random.NextDouble();
             double r2 = random.NextDouble();
 
-            double A = 2 * a * r1 - a;
+            double l = (2 * L.NextDouble() - 1);
+            double A = 2 * a*  r1 - a;
             double C = 2 * r2;
             double alpha_pos = wolves.Find(wolf => wolf.name.Equals(wolfname)).position[dimension];
-            double D_alpha = Math.Abs(C * alpha_pos - wolfPositions[wolfIndex][dimension]);
+            double D_alpha = Math.Abs(C * alpha_pos - wolfPositions[wolfIndex].Average());
             double X = alpha_pos - A * D_alpha;
 
             return X;

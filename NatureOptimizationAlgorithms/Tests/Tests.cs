@@ -8,7 +8,7 @@ namespace NatureOptimizationAlgorithms.Tests
     {
         public static Double ObjectiveFunction(List<double> X)
         {
-            return Function1(X);
+            return Function2(X);
         }
         private static Double Function2(List<double> X)
         {

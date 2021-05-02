@@ -1,8 +1,12 @@
 ﻿using Force.DeepCloner;
+using KingAOP;
+using NatureOptimizationAlgorithms.Attributes;
 using NatureOptimizationAlgorithms.Contracts;
 using NatureOptimizationAlgorithms.Tools;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace NatureOptimizationAlgorithms.Algorithms
@@ -37,6 +41,7 @@ namespace NatureOptimizationAlgorithms.Algorithms
         {
             return Tests.Tests.ObjectiveFunction(X);
         }
+        [LoggingAspect]
         public void Initialize(int maxIterations, int numberOfWhales, int numberOfDimensions, List<double> upperBoundaries, List<double> lowerBoundaries)
         {
             this.numberOfWhales = numberOfWhales;
@@ -47,6 +52,8 @@ namespace NatureOptimizationAlgorithms.Algorithms
 
             Initialize();
         }
+
+       
         public void Initialize()
         {
             Random random = new Random();
@@ -190,6 +197,11 @@ namespace NatureOptimizationAlgorithms.Algorithms
 
             Console.WriteLine($"Whale Score: {bestSearchAgent.score}");
             Console.WriteLine($"Whale Positions: {String.Join(", ", bestSearchAgent.position.ToArray())}");
+        }
+
+        public DynamicMetaObject GetMetaObject(Expression parameter)
+        {
+            return new AspectWeaver(parameter, this);
         }
     }
 }

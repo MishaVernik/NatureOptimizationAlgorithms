@@ -1,8 +1,12 @@
 ﻿using Force.DeepCloner;
+using KingAOP;
+using NatureOptimizationAlgorithms.Attributes;
 using NatureOptimizationAlgorithms.Contracts;
 using NatureOptimizationAlgorithms.Models;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace NatureOptimizationAlgorithms.Algorithms
@@ -102,6 +106,8 @@ namespace NatureOptimizationAlgorithms.Algorithms
             Console.WriteLine($"PSO Score: {ObjectiveFunction(swarm.globalBestPosition)}");
             Console.WriteLine($"PSO Positions: {String.Join(", ", swarm.globalBestPosition.ToArray())}");
         }
+
+        [LoggingAspect]
         public void Initialize(int maxIterations, int numberOfParticles, int numberOfDimensions, List<double> upperBoundaries, List<double> lowerBoundaries)
         {
             this.maxIterations = maxIterations;
@@ -113,6 +119,12 @@ namespace NatureOptimizationAlgorithms.Algorithms
             swarm = new Swarm();
             Initialize();
         }
+        public DynamicMetaObject GetMetaObject(Expression parameter)
+        {
+            return new AspectWeaver(parameter, this);
+        }
+
+      
         public void Initialize()
         {
             Random random = new Random();
@@ -141,5 +153,7 @@ namespace NatureOptimizationAlgorithms.Algorithms
             swarm.globalBestVelocity = new List<double>(new double[numberOfDimensions]);
             swarm.globalBestScore = Globals.Globals.INFINITY;
         }
+       
     }
+  
 }

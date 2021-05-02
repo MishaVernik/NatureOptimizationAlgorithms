@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Text;
 
 namespace NatureOptimizationAlgorithms.Contracts
 {
-    public interface IOptimizer
+    public interface IOptimizer : IDynamicMetaObjectProvider
     {
         void Solve();
         void Initialize();
