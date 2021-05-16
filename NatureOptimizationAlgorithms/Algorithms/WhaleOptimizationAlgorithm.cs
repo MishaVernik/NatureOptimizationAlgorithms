@@ -14,8 +14,15 @@ namespace NatureOptimizationAlgorithms.Algorithms
     /// <summary>
     /// Whale Optimization Algorithm - WOA
     /// </summary>
-    public class WhaleOptimizationAlgorithm : IOptimizer
+    public class WhaleOptimizationAlgorithm : Optimizer
     {
+        private Optimizer.ObjectiveFunctiomDelegate objectiveFunctiomDelegate;
+
+        public override void SetTestFunction(ref Optimizer.ObjectiveFunctiomDelegate objectiveFunctiomDelegate)
+        {
+            this.objectiveFunctiomDelegate = objectiveFunctiomDelegate;
+        }
+
 
         public int numberOfWhales { get; set; }
         public int numberOfDimensions { get; set; }
@@ -37,12 +44,13 @@ namespace NatureOptimizationAlgorithms.Algorithms
             this.upperBoundaries = upperBoundaries;
             this.lowerBoundaries = lowerBoundaries;
         }
-        public Double ObjectiveFunction(List<double> X)
+        public override Double ObjectiveFunction(List<double> X)
         {
+            return objectiveFunctiomDelegate(X);
             return Tests.Tests.ObjectiveFunction(X);
         }
         [LoggingAspect]
-        public void Initialize(int maxIterations, int numberOfWhales, int numberOfDimensions, List<double> upperBoundaries, List<double> lowerBoundaries)
+        public override void Initialize(int maxIterations, int numberOfWhales, int numberOfDimensions, List<double> upperBoundaries, List<double> lowerBoundaries)
         {
             this.numberOfWhales = numberOfWhales;
             this.numberOfDimensions = numberOfDimensions;
@@ -54,7 +62,7 @@ namespace NatureOptimizationAlgorithms.Algorithms
         }
 
        
-        public void Initialize()
+        public override void Initialize()
         {
             Random random = new Random();
             whales = new List<Whale>();
@@ -73,7 +81,7 @@ namespace NatureOptimizationAlgorithms.Algorithms
             }
         }
 
-        public void Solve()
+        public override Double Solve()
         {
             Random random = new Random();
 
@@ -195,11 +203,13 @@ namespace NatureOptimizationAlgorithms.Algorithms
                 //Console.WriteLine($"Whale Positions: {String.Join(", ", bestSearchAgent.position.ToArray())}");
             }
 
-            Console.WriteLine($"Whale Score: {bestSearchAgent.score}");
-            Console.WriteLine($"Whale Positions: {String.Join(", ", bestSearchAgent.position.ToArray())}");
+          //  Console.WriteLine($"Whale Score: {bestSearchAgent.score}");
+           // Console.WriteLine($"Whale Positions: {String.Join(", ", bestSearchAgent.position.ToArray())}");
+
+            return bestSearchAgent.score;
         }
 
-        public DynamicMetaObject GetMetaObject(Expression parameter)
+        public override DynamicMetaObject GetMetaObject(Expression parameter)
         {
             return new AspectWeaver(parameter, this);
         }

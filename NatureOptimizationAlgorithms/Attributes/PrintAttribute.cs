@@ -11,8 +11,8 @@ namespace NatureOptimizationAlgorithms.Attributes
     {
         public override void OnEntry(MethodExecutionArgs args)
         {
-            string logData = CreateLogData("\nEntering", args);
-            Console.WriteLine(logData);
+         //   string logData = CreateLogData("\nEntering", args);
+         //   Console.WriteLine(logData);
         }
 
         public override void OnExit(MethodExecutionArgs args)

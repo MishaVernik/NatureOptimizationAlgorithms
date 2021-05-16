@@ -11,8 +11,15 @@ using System.Text;
 
 namespace NatureOptimizationAlgorithms.Algorithms
 {
-    public class ParticleSwarmOptimization : IOptimizer
+    public class ParticleSwarmOptimization : Optimizer
     {
+        private Optimizer.ObjectiveFunctiomDelegate objectiveFunctiomDelegate;
+
+        public override void SetTestFunction(ref Optimizer.ObjectiveFunctiomDelegate objectiveFunctiomDelegate)
+        {
+            this.objectiveFunctiomDelegate = objectiveFunctiomDelegate;
+        }
+
         public int maxIterations { get; set; }
 
         public int numberOfParticles { get; set; }
@@ -22,8 +29,9 @@ namespace NatureOptimizationAlgorithms.Algorithms
         public Swarm swarm { get; set; }
 
 
-        public Double ObjectiveFunction(List<double> X)
+        public override Double ObjectiveFunction(List<double> X)
         {
+            return objectiveFunctiomDelegate(X);
             return Tests.Tests.ObjectiveFunction(X);
         }
         public ParticleSwarmOptimization()
@@ -42,7 +50,7 @@ namespace NatureOptimizationAlgorithms.Algorithms
             swarm = new Swarm();
         }
 
-        public void Solve()
+        public override Double Solve()
         {
             Random random = new Random();
             double wMax = 0.9;
@@ -103,12 +111,14 @@ namespace NatureOptimizationAlgorithms.Algorithms
                 }
             }
 
-            Console.WriteLine($"PSO Score: {ObjectiveFunction(swarm.globalBestPosition)}");
-            Console.WriteLine($"PSO Positions: {String.Join(", ", swarm.globalBestPosition.ToArray())}");
+           // Console.WriteLine($"PSO Score: {ObjectiveFunction(swarm.globalBestPosition)}");
+          //  Console.WriteLine($"PSO Positions: {String.Join(", ", swarm.globalBestPosition.ToArray())}");
+
+            return ObjectiveFunction(swarm.globalBestPosition);
         }
 
         [LoggingAspect]
-        public void Initialize(int maxIterations, int numberOfParticles, int numberOfDimensions, List<double> upperBoundaries, List<double> lowerBoundaries)
+        public override void Initialize(int maxIterations, int numberOfParticles, int numberOfDimensions, List<double> upperBoundaries, List<double> lowerBoundaries)
         {
             this.maxIterations = maxIterations;
             this.numberOfParticles = numberOfParticles;
@@ -119,13 +129,13 @@ namespace NatureOptimizationAlgorithms.Algorithms
             swarm = new Swarm();
             Initialize();
         }
-        public DynamicMetaObject GetMetaObject(Expression parameter)
+        public override DynamicMetaObject GetMetaObject(Expression parameter)
         {
             return new AspectWeaver(parameter, this);
         }
 
       
-        public void Initialize()
+        public override void Initialize()
         {
             Random random = new Random();
            

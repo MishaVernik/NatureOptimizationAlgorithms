@@ -15,8 +15,16 @@ namespace NatureOptimizationAlgorithms.Algorithms
     /// <summary>
     /// Gray Wolf Optimizer - GWO
     /// </summary>
-    public class GrayWolfOptimizer : IOptimizer
+    public class GrayWolfOptimizer : Optimizer
     {
+        private Optimizer.ObjectiveFunctiomDelegate objectiveFunctiomDelegate;
+
+        public override void SetTestFunction(ref Optimizer.ObjectiveFunctiomDelegate objectiveFunctiomDelegate)
+        {
+            this.objectiveFunctiomDelegate = objectiveFunctiomDelegate;
+        }
+
+
         public int maxIterations { get; set; }
 
         public int numberOfWolves { get; set; }
@@ -50,13 +58,15 @@ namespace NatureOptimizationAlgorithms.Algorithms
             this.lowerBoundaries = lowerBoundaries;
         }
 
-        public Double ObjectiveFunction(List<double> X)
+  
+        public override Double ObjectiveFunction(List<double> X)
         {
+            return objectiveFunctiomDelegate(X);
             return Tests.Tests.ObjectiveFunction(X);
         }
 
         [LoggingAspect]
-        public void Initialize(int maxIterations, int numberOfWolves, int numberOfDimensions, List<double> upperBoundaries, List<double> lowerBoundaries)
+        public override void Initialize(int maxIterations, int numberOfWolves, int numberOfDimensions, List<double> upperBoundaries, List<double> lowerBoundaries)
         {
             this.maxIterations = maxIterations;
             this.numberOfWolves = numberOfWolves;
@@ -68,7 +78,7 @@ namespace NatureOptimizationAlgorithms.Algorithms
         }
 
 
-        public void Initialize()
+        public override void Initialize()
         {
             GenerateWolves();
             GeneratePositions();
@@ -102,7 +112,7 @@ namespace NatureOptimizationAlgorithms.Algorithms
             }
         }
 
-        public void Solve()
+        public override Double Solve()
         {
             Random random = new Random();
             currentIteration = 0;
@@ -188,9 +198,10 @@ namespace NatureOptimizationAlgorithms.Algorithms
                 //Console.WriteLine($"Alpha Score: {wolves.Find(wolf => wolf.name.Equals("alpha")).score}");
                 //Console.WriteLine($"Alpha Positions: {String.Join(", ", wolves.Find(wolf => wolf.name.Equals("alpha")).position.ToArray())}");
             }
-            Console.WriteLine($"Alpha Score: {wolves.Find(wolf => wolf.name.Equals("alpha")).score}");
-            Console.WriteLine($"Alpha Positions: {String.Join(", ", wolves.Find(wolf => wolf.name.Equals("alpha")).position.ToArray())}");
+           // Console.WriteLine($"Alpha Score: {wolves.Find(wolf => wolf.name.Equals("alpha")).score}");
+           // Console.WriteLine($"Alpha Positions: {String.Join(", ", wolves.Find(wolf => wolf.name.Equals("alpha")).position.ToArray())}");
 
+            return wolves.Find(wolf => wolf.name.Equals("alpha")).score;
         }
 
         private double GenerateNewPosition(Random random, int wolfIndex, int dimension, string wolfname)
@@ -206,7 +217,7 @@ namespace NatureOptimizationAlgorithms.Algorithms
 
             return X;
         }
-        public DynamicMetaObject GetMetaObject(Expression parameter)
+        public override DynamicMetaObject GetMetaObject(Expression parameter)
         {
             return new AspectWeaver(parameter, this);
         }

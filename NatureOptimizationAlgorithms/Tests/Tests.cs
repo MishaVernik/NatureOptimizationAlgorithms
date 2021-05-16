@@ -44,7 +44,7 @@ namespace NatureOptimizationAlgorithms.Tests
         /// </summary>
         /// <param name="X"></param>
         /// <returns></returns>
-        private static Double AckleyFunction(List<double> X)
+        public static Double F10(List<double> X)
         {
             double result = 0;
             double a = 20;
@@ -64,7 +64,7 @@ namespace NatureOptimizationAlgorithms.Tests
         /// </summary>
         /// <param name="X"></param>
         /// <returns></returns>
-        private static Double F1(List<double> X)
+        public static Double F1(List<double> X)
         {
             double result = 0;
 
@@ -79,7 +79,7 @@ namespace NatureOptimizationAlgorithms.Tests
         /// </summary>
         /// <param name="X"></param>
         /// <returns></returns>
-        private static Double F2(List<double> X)
+        public static Double F2(List<double> X)
         {
             double result = 0;
 
@@ -88,7 +88,7 @@ namespace NatureOptimizationAlgorithms.Tests
             return result;
         }
 
-        private static Double F3(List<double> X)
+        public static Double F3(List<double> X)
         {
             double result = 0;
             for (int i = 0; i < X.Count; i++)
@@ -105,7 +105,7 @@ namespace NatureOptimizationAlgorithms.Tests
             return result;
         }
 
-        private static Double F4(List<double> X)
+        public static Double F4(List<double> X)
         {
             double result = Int32.MinValue;
             for (int i = 0; i < X.Count; i++)
@@ -119,7 +119,7 @@ namespace NatureOptimizationAlgorithms.Tests
             return result;
         }
 
-        private static Double F5(List<double> X)
+        public static Double F5(List<double> X)
         {
             double result = 0;
 
@@ -130,7 +130,7 @@ namespace NatureOptimizationAlgorithms.Tests
             return result;
         }
 
-        private static Double F6(List<double> X)
+        public static Double F6(List<double> X)
         {
             double result = 0;
             result = X.Sum(x => Math.Abs((x + 0.5) * (x + 0.5)));
@@ -142,7 +142,7 @@ namespace NatureOptimizationAlgorithms.Tests
         /// </summary>
         /// <param name="X"></param>
         /// <returns></returns>
-        private static Double F8(List<double> X)
+        public static Double F8(List<double> X)
         {
             double result = 0;
 
@@ -150,7 +150,7 @@ namespace NatureOptimizationAlgorithms.Tests
             return result;
         }
 
-        private static Double F9(List<double> X)
+        public static Double F9(List<double> X)
         {
             // [-5.12, 5.12]
             double result = 0;
@@ -158,7 +158,7 @@ namespace NatureOptimizationAlgorithms.Tests
             result = X.Sum(x => x * x - 10 * Math.Sin(2 * Math.PI * x) + 10);
             return result;
         }
-        private static Double F11(List<double> X)
+        public static Double F11(List<double> X)
         {
             // [-600, 600]
             double result = 0;

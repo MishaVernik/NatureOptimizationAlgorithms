@@ -19,8 +19,15 @@ namespace NatureOptimizationAlgorithms.Algorithms
     ///     MGWO - exploitation
     ///     WOA  - exploration 
     /// </summary>
-    public class HybridApproachGWO : IOptimizer
+    public class HybridApproachGWO : Optimizer
     {
+        private Optimizer.ObjectiveFunctiomDelegate objectiveFunctiomDelegate;
+
+        public override void SetTestFunction(ref Optimizer.ObjectiveFunctiomDelegate objectiveFunctiomDelegate)
+        {
+            this.objectiveFunctiomDelegate = objectiveFunctiomDelegate;
+        }
+
         public int numberOfHybridWolfWhales { get; set; }
         public int numberOfDimensions { get; set; }
         public int maxIterations { get; private set; }
@@ -50,11 +57,12 @@ namespace NatureOptimizationAlgorithms.Algorithms
             wolves.Add(new Wolf("beta", Double.MaxValue, new List<double>(new double[numberOfDimensions])));
             wolves.Add(new Wolf("delta", Double.MaxValue, new List<double>(new double[numberOfDimensions])));
         }
-        public Double ObjectiveFunction(List<double> X)
+        public override Double ObjectiveFunction(List<double> X)
         {
+            return objectiveFunctiomDelegate(X);
             return Tests.Tests.ObjectiveFunction(X);
         }
-        public void Initialize()
+        public override void Initialize()
         {
             Random random = new Random();
             hybridApproachGWOs = new List<HybridWolfWhale>();
@@ -75,7 +83,7 @@ namespace NatureOptimizationAlgorithms.Algorithms
         }
 
         [LoggingAspect]
-        public void Initialize(int maxIterations, int numberOfPopulation, int numberOfDimensions, List<double> upperBoundaries, List<double> lowerBoundaries)
+        public override void Initialize(int maxIterations, int numberOfPopulation, int numberOfDimensions, List<double> upperBoundaries, List<double> lowerBoundaries)
         {
             this.numberOfHybridWolfWhales = numberOfPopulation;
             this.numberOfDimensions = numberOfDimensions;
@@ -98,7 +106,7 @@ namespace NatureOptimizationAlgorithms.Algorithms
 
             return X;
         }
-        public void Solve()
+        public override Double Solve()
         {
             Random random = new Random();
 
@@ -278,11 +286,13 @@ namespace NatureOptimizationAlgorithms.Algorithms
                 //Console.WriteLine($"Whale Positions: {String.Join(", ", bestSearchAgent.position.ToArray())}");
             }
 
-            Console.WriteLine($"WolfWhale Score: {bestSearchAgent.score}");
-            Console.WriteLine($"WolfWhale Positions: {String.Join(", ", bestSearchAgent.position.ToArray())}");
+         //   Console.WriteLine($"WolfWhale Score: {bestSearchAgent.score}");
+         //   Console.WriteLine($"WolfWhale Positions: {String.Join(", ", bestSearchAgent.position.ToArray())}");
+
+            return bestSearchAgent.score;
         }
 
-        public DynamicMetaObject GetMetaObject(Expression parameter)
+        public override DynamicMetaObject GetMetaObject(Expression parameter)
         {
             return new AspectWeaver(parameter, this);
         }
