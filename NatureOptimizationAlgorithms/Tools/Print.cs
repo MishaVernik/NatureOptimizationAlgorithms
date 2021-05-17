@@ -45,7 +45,7 @@ namespace NatureOptimizationAlgorithms.Tools
 
             //save
             string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            string savePath = Path.Combine(desktopPath, "test2.xlsx");
+            string savePath = Path.Combine(desktopPath, "test_max5.xlsx");
             workbook.SaveAs(savePath, false);
         }
     }

@@ -68,12 +68,12 @@ namespace NatureOptimizationAlgorithms.Algorithms
                     List<double> currentParticlePosition = particle.position;
                     Double currentParticleScore = ObjectiveFunction(currentParticlePosition);
 
-                    if (currentParticleScore < particle.personalBestScore)
+                    if (currentParticleScore > particle.personalBestScore)
                     {
                         particle.personalBestPosition = currentParticlePosition.DeepClone();
                         particle.personalBestScore = currentParticleScore;
 
-                        if (currentParticleScore < swarm.globalBestScore)
+                        if (currentParticleScore > swarm.globalBestScore)
                         {
                             swarm.globalBestPosition = currentParticlePosition.DeepClone();
                             swarm.globalBestScore = currentParticleScore;

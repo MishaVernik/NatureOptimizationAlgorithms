@@ -1,5 +1,6 @@
 ﻿using Force.DeepCloner;
 using KingAOP;
+using MoreLinq;
 using NatureOptimizationAlgorithms.Attributes;
 using NatureOptimizationAlgorithms.Contracts;
 using NatureOptimizationAlgorithms.Models.HAGWO;
@@ -115,12 +116,12 @@ namespace NatureOptimizationAlgorithms.Algorithms
             Random L = new Random();
             Random P = new Random();
 
-            double b = random.NextDouble() * random.Next(1, hybridApproachGWOs.Count); // logarithmic spiral
+            double b = random.NextDouble() * random.Next(1, hybridApproachGWOs.Count) + 7; // logarithmic spiral
             double a = 2;
 
             int currentIteration = 0;
 
-            HybridWolfWhale bestSearchAgent = hybridApproachGWOs.MinBy(item => item.score).DeepClone();
+            HybridWolfWhale bestSearchAgent = hybridApproachGWOs.MaxBy(item => item.score).FirstOrDefault().DeepClone();
 
             while (currentIteration < maxIterations)
             {
@@ -134,7 +135,7 @@ namespace NatureOptimizationAlgorithms.Algorithms
                     {
                         if (mainWolfIndex == 0)
                         {
-                            if (fitness < wolves[mainWolfIndex].score)
+                            if (fitness > wolves[mainWolfIndex].score)
                             {
                                 wolves[mainWolfIndex].position = hybridApproachGWOs[wolfWhaleIndex].position.DeepClone();
                                 wolves[mainWolfIndex].score = fitness;
@@ -146,7 +147,7 @@ namespace NatureOptimizationAlgorithms.Algorithms
                             bool canApplynewScore = true;
                             for (int i = 0; i < mainWolfIndex; i++)
                             {
-                                if (fitness <= wolves[i].score)
+                                if (fitness >= wolves[i].score)
                                 {
                                     canApplynewScore = false;
                                     break;
@@ -154,7 +155,7 @@ namespace NatureOptimizationAlgorithms.Algorithms
                             }
                             if (canApplynewScore)
                             {
-                                if (fitness < wolves[mainWolfIndex].score)
+                                if (fitness > wolves[mainWolfIndex].score)
                                 {
                                     wolves[mainWolfIndex].position = hybridApproachGWOs[wolfWhaleIndex].position.DeepClone();
                                     wolves[mainWolfIndex].score = fitness;
@@ -274,8 +275,8 @@ namespace NatureOptimizationAlgorithms.Algorithms
                     currentWolfWhale.score = ObjectiveFunction(currentWolfWhale.position);
                 }
 
-                var newBestSearchAgent = hybridApproachGWOs.MinBy(item => item.score).DeepClone();
-                if (newBestSearchAgent.score < bestSearchAgent.score)
+                var newBestSearchAgent = hybridApproachGWOs.MaxBy(item => item.score).FirstOrDefault().DeepClone();
+                if (newBestSearchAgent.score > bestSearchAgent.score)
                 {
                     bestSearchAgent = newBestSearchAgent.DeepClone();
                 }

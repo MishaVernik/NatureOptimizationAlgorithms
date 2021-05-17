@@ -12,6 +12,7 @@
     <PackageReference Include="ClosedXML" Version="0.95.4" />
     <PackageReference Include="DeepCloner" Version="0.10.2" />
     <PackageReference Include="KingAOP" Version="1.0.0" />
+    <PackageReference Include="morelinq" Version="3.3.2" />
     <PackageReference Include="System.Runtime.Numerics" Version="4.3.0" />
   </ItemGroup>
 

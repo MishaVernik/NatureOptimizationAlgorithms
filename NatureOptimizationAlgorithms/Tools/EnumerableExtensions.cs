@@ -34,7 +34,7 @@ namespace NatureOptimizationAlgorithms.Tools
             if (first) throw new InvalidOperationException("Sequence is empty.");
             return maxObj;
         }
-
+       
         public static TSource MinBy<TSource, TKey>(this IEnumerable<TSource> source,
       Func<TSource, TKey> selector)
         {

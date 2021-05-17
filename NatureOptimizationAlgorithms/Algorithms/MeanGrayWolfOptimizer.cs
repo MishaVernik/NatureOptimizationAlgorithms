@@ -80,9 +80,9 @@ namespace NatureOptimizationAlgorithms.Algorithms
         private void GenerateWolves()
         {
             wolves = new List<Wolf>();
-            wolves.Add(new Wolf("alpha", Double.MaxValue, new List<double>(new double[numberOfDimensions])));
-            wolves.Add(new Wolf("beta", Double.MaxValue, new List<double>(new double[numberOfDimensions])));
-            wolves.Add(new Wolf("delta", Double.MaxValue, new List<double>(new double[numberOfDimensions])));
+            wolves.Add(new Wolf("alpha", Double.MinValue, new List<double>(new double[numberOfDimensions])));
+            wolves.Add(new Wolf("beta", Double.MinValue, new List<double>(new double[numberOfDimensions])));
+            wolves.Add(new Wolf("delta", Double.MinValue, new List<double>(new double[numberOfDimensions])));
         }
         private void GeneratePositions()
         {
@@ -121,7 +121,7 @@ namespace NatureOptimizationAlgorithms.Algorithms
                     {
                         if (mainWolfIndex == 0)
                         {
-                            if (fitness < wolves[mainWolfIndex].score)
+                            if (fitness > wolves[mainWolfIndex].score)
                             {
                                 wolves[mainWolfIndex].position = wolfPositions[wolfIndex].DeepClone();
                                 wolves[mainWolfIndex].score = fitness;
@@ -133,7 +133,7 @@ namespace NatureOptimizationAlgorithms.Algorithms
                             bool canApplynewScore = true;
                             for (int i = 0; i < mainWolfIndex; i++)
                             {
-                                if (fitness <= wolves[i].score)
+                                if (fitness >= wolves[i].score)
                                 {
                                     canApplynewScore = false;
                                     break;
@@ -141,7 +141,7 @@ namespace NatureOptimizationAlgorithms.Algorithms
                             }
                             if (canApplynewScore)
                             {
-                                if (fitness < wolves[mainWolfIndex].score)
+                                if (fitness > wolves[mainWolfIndex].score)
                                 {
                                     wolves[mainWolfIndex].position = wolfPositions[wolfIndex].DeepClone();
                                     wolves[mainWolfIndex].score = fitness;

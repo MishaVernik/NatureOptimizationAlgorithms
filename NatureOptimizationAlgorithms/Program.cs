@@ -126,15 +126,15 @@ namespace NatureOptimizationAlgorithms
 
         private static void Initialize(out int maxIterations, out int numberOfPopulation, out int numberOfDimensions, out List<double> upperBoundaries, out List<double> lowerBoundaries)
         {
-            maxIterations = 3000;
+            maxIterations = 1000;
             numberOfPopulation = 50;
             numberOfDimensions = 30;
             upperBoundaries = new List<double>();
             lowerBoundaries = new List<double>();
             for (int i = 0; i < numberOfDimensions; i++)
             {
-                upperBoundaries.Add(100);
-                lowerBoundaries.Add(-100);
+                upperBoundaries.Add(32);
+                lowerBoundaries.Add(-32);
             }
         }
     }

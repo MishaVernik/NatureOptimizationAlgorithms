@@ -1,5 +1,6 @@
 ﻿using Force.DeepCloner;
 using KingAOP;
+using MoreLinq;
 using NatureOptimizationAlgorithms.Attributes;
 using NatureOptimizationAlgorithms.Contracts;
 using NatureOptimizationAlgorithms.Tools;
@@ -95,7 +96,7 @@ namespace NatureOptimizationAlgorithms.Algorithms
 
             int currentIteration = 0;
 
-            Whale bestSearchAgent = whales.MinBy(item => item.score).DeepClone();
+            Whale bestSearchAgent = whales.MaxBy(item => item.score).FirstOrDefault().DeepClone();
 
             while (currentIteration < maxIterations)
             {
@@ -191,8 +192,8 @@ namespace NatureOptimizationAlgorithms.Algorithms
                     currentWhale.score = ObjectiveFunction(currentWhale.position);
                 }
 
-                var newBestSearchAgent = whales.MinBy(item => item.score).DeepClone();
-                if (newBestSearchAgent.score < bestSearchAgent.score)
+                var newBestSearchAgent = whales.MaxBy(item => item.score).FirstOrDefault().DeepClone();
+                if (newBestSearchAgent.score > bestSearchAgent.score)
                 {
                     bestSearchAgent = newBestSearchAgent.DeepClone();
                 }
